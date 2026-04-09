@@ -86,6 +86,39 @@ if (backToTop) {
   });
 }
 
+// ── Contact form — AJAX submission ─────────────
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+  contactForm.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const status = document.getElementById('formStatus');
+    const btn = contactForm.querySelector('button[type="submit"]');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    try {
+      const res = await fetch(contactForm.action, {
+        method: 'POST',
+        body: new FormData(contactForm),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        contactForm.reset();
+        status.textContent = 'Message sent — Jim will be in touch soon. Thank you!';
+        status.style.color = '#c9a44a';
+        btn.textContent = 'Send Message';
+        btn.disabled = false;
+      } else {
+        throw new Error('Server error');
+      }
+    } catch {
+      status.textContent = 'Something went wrong. Please email jim@thiele4schoolboard.com directly.';
+      status.style.color = '#cc2a3f';
+      btn.textContent = 'Send Message';
+      btn.disabled = false;
+    }
+  });
+}
+
 // ── Active nav link on scroll ──────────────────
 const sections = document.querySelectorAll('section[id]');
 const navAnchors = document.querySelectorAll('.nav-links a');
