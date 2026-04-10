@@ -37,6 +37,18 @@
     </div>
   </nav>
 
+  <!-- SVG wave filter for flag -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+    <defs>
+      <filter id="flagWave" x="0%" y="-5%" width="100%" height="110%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.018 0.08" numOctaves="3" seed="4" result="noise">
+          <animate attributeName="baseFrequency" dur="10s" values="0.018 0.08;0.022 0.09;0.018 0.08" repeatCount="indefinite"/>
+        </feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="10" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </defs>
+  </svg>
+
   <!-- ===== HERO ===== -->
   <section id="home" class="hero">
     <div class="flag-bg" aria-hidden="true"></div>
